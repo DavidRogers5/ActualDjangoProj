@@ -29,16 +29,26 @@ SECRET_KEY = 'django-insecure-bhiidgnt1_-&dws$%ju6o)b4q04w&6ny-k^%edz#(vb0m8@5i$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-import os
-host = os.environ.get("WEBSITE_HOSTNAME")  # Azure injects this automatically
-ALLOWED_HOSTS = [host] if host else []
-ALLOWED_HOSTS += ["localhost", "127.0.0.1", "169.254.130.3"]
 
-# CSRF trusted origins fix for Azure
+import os
+
+host = os.environ.get("WEBSITE_HOSTNAME")
+
+ALLOWED_HOSTS = [host] if host else []
+ALLOWED_HOSTS += [
+    "localhost",
+    "127.0.0.1",
+    "169.254.130.3",
+    "169.254.131.4",
+]
+
+# Azure adds regional hostnames like canadacentral-01.azurewebsites.net
 CSRF_TRUSTED_ORIGINS = [
     "https://" + os.environ.get("WEBSITE_HOSTNAME", ""),
     "https://*.azurewebsites.net",
+    "https://*.canadacentral-01.azurewebsites.net",
 ]
+
 
 
 # Application definition
