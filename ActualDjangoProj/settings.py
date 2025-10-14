@@ -34,6 +34,13 @@ host = os.environ.get("WEBSITE_HOSTNAME")  # Azure injects this automatically
 ALLOWED_HOSTS = [host] if host else []
 ALLOWED_HOSTS += ["localhost", "127.0.0.1", "169.254.130.3"]
 
+# CSRF trusted origins fix for Azure
+CSRF_TRUSTED_ORIGINS = [
+    "https://" + os.environ.get("WEBSITE_HOSTNAME", ""),
+    "https://*.azurewebsites.net",
+]
+
+
 # Application definition
 
 INSTALLED_APPS = [
