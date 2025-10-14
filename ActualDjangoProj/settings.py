@@ -29,8 +29,10 @@ SECRET_KEY = 'django-insecure-bhiidgnt1_-&dws$%ju6o)b4q04w&6ny-k^%edz#(vb0m8@5i$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+import os
+host = os.environ.get("WEBSITE_HOSTNAME")  # Azure injects this automatically
+ALLOWED_HOSTS = [host] if host else []
+ALLOWED_HOSTS += ["localhost", "127.0.0.1", "169.254.130.3"]
 
 # Application definition
 
